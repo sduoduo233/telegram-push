@@ -1,0 +1,12 @@
+{
+  "name": "telegram-push2",
+  "version": "0.0.0",
+  "devDependencies": {
+    "wrangler": "2.12.3"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  }
+}
