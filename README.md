@@ -39,6 +39,23 @@
 
 5. 点 Fork repository，Cloudflare 会自动 fork 一个仓库。
 
-6. 按照提示启用一下 Github Action
+6. 按照提示启用一下 Github Action。
 
-7. 
+7. 这时 Gtihub Action 应该会自动开始运行，如果没运行的话可以手动运行一下。
+
+![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/11.png)
+
+# 安装
+1. 找 [Bot Father](https://t.me/BotFather) 创建一个机器人。
+
+2. 部署完成以后在 Cloudflare 面板里找到你 Worker 的地址，把机器人的 Token 填进去，然后点安装。
+
+![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/12.png)
+
+3. 私聊你的机器人 `/new` 创建一个密钥，然后就可以开始推送消息了。
+
+![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/13.png)
+
+4. `/admin` 是管理面板，有一些基本的功能。
+
+![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/13.png)
