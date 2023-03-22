@@ -21,9 +21,9 @@ jobs:
 
       - name: Publish
         uses: cloudflare/wrangler-action@1.3.0
-        preCommands: |
-          python3 deploy.py
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          preCommands: |
+            python3 deploy.py
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
