@@ -26,7 +26,7 @@ f = open("wrangler.toml", "r")
 content = f.read()
 f.close()
 
-content.replace("9a72929f160f458a8adf02500bd35d90", kv_id)
+content = content.replace("9a72929f160f458a8adf02500bd35d90", kv_id)
 
 f = open("wrangler.toml", "w")
 f.write(content)
