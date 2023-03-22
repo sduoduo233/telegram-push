@@ -58,4 +58,4 @@
 
 4. `/admin` 是管理面板，有一些基本的功能。
 
-![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/13.png)
+![API Tokens](https://raw.githubusercontent.com/sduoduo233/telegram-push/master/images/14.png)
