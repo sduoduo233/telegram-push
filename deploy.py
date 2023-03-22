@@ -2,14 +2,15 @@
 import os
 import subprocess
 import json
+from subprocess import CalledProcessError
 
 print("DEPLOY")
 
 def exec(cmd):
     print("exec: " + cmd)
-    result = subprocess.run(cmd.split(" "), capture_output=True, text=True)
+    result = subprocess.run(cmd.split(" "), capture_output=True)
     print("return: " + str(result.returncode))
-    return result.stdout
+    return result.stdout.decode("utf-8")
 
 exec("npx wrangler kv:namespace create DB")
 
