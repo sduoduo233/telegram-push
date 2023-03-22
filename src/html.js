@@ -67,6 +67,7 @@ export function Admin(users) {
     </form>
   
   
+    <!--懒得写了，先注释掉
     <form action="/admin" method="post">
       <input type="hidden" name="action" value="delete" />
       <fieldset>
@@ -86,7 +87,7 @@ ${users.map((user) => {
 
         </table>
       </fieldset>
-    </form>
+    </form>-->
   </body>
 `
 }
