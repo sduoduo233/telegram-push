@@ -1,33 +1,34 @@
+#!/usr/bin/python3
+import subprocess as sb
 import os
-import subprocess
+import re
 import json
-from subprocess import CalledProcessError
 
-print("DEPLOY")
+print("Deploy")
 
-def exec(cmd):
-    print("exec: " + cmd)
-    result = subprocess.run(cmd.split(" "), capture_output=True)
-    print("return: " + str(result.returncode))
-    return result.stdout.decode("utf-8")
+print("=> Creating KV...")
+print("return", os.system("npx wrangler kv:namespace create DB > /dev/null"))
 
-exec("npx wrangler kv:namespace create DB")
-
-kv = json.loads(exec("npx wrangler kv:namespace list"))
-
+print("=> Get KV id...")
 kv_id = ""
-for i in kv:
-    print("KV", i["title"])
+data = json.loads(sb.getoutput("npx wrangler kv:namespace list"))
+for i in data:
     if "telegram-push2-DB" in i["title"]:
         kv_id = i["id"]
-        print("ok")
+        print("KV", i["title"], "OK")
+    else:
+        print("KV", i["title"])
+
 
 f = open("wrangler.toml", "r")
 content = f.read()
 f.close()
 
-content = content.replace("9a72929f160f458a8adf02500bd35d90", kv_id)
+print("=> Replacing...")
+content = content.replace(re.search("{ binding = \"DB\", id = \"([0-9a-f]+)\" }", content).group(1), kv_id)
 
 f = open("wrangler.toml", "w")
 f.write(content)
 f.close()
+
+print("=> Done")

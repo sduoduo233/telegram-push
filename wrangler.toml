@@ -3,5 +3,5 @@ main = "src/index.js"
 compatibility_date = "2023-03-19"
 
 kv_namespaces = [
-    { binding = "DB", id = "9a72929f160f458a8adf02500bd35d90" }
+    { binding = "DB", id = "942a5579084c4b9794b14fdb0e6dc334" }
 ]
