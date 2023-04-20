@@ -1,7 +1,7 @@
-name = "telegram-push2"
+name = "telegram-push"
 main = "src/index.js"
-compatibility_date = "2023-03-19"
+compatibility_date = "2023-04-20"
 
 kv_namespaces = [
-    { binding = "DB", id = "942a5579084c4b9794b14fdb0e6dc334" }
+    { binding = "DB", id = "5d44591691f546b9ae6031c7ad3632a6" }
 ]

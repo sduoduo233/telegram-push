@@ -1,8 +1,8 @@
 {
-  "name": "telegram-push2",
+  "name": "telegram-push",
   "version": "0.0.0",
   "devDependencies": {
-    "wrangler": "2.12.3"
+    "wrangler": "^2.12.3"
   },
   "private": true,
   "scripts": {
