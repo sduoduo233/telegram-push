@@ -181,21 +181,46 @@ async function handleWebhook(request, env, ctx) {
 	const tgKey = await env.DB.get("TG_KEY");
 
 	switch (cmds[0]) {
-		case "/new":
-			const key = randomStr();
-			const workerUrl = await env.DB.get("WORKER_URL");
+	case "/status":
+      const your_status = await env.DB.get(chatid + "_status");
+      const status_res = (await sendMessage(`${your_status}`, chatid, tgKey)).json();
+      console.log(status_res);
+      break;
 
-			await env.DB.put(new String(chatid), key);
+    case "/on":
+      await env.DB.put(new String(chatid + "_status"), "on");
+      const on_status = await env.DB.get(chatid + "_status");
+      const on_res = (await sendMessage(`${on_status}`, chatid, tgKey)).json();
+      console.log(on_res);
+      break;
 
-			const resp = await sendMessage(`Your new key is \`${key}\`. Usage example: \`https://${workerUrl}/push?key=${chatid}-${key}&msg=Hello!\` (click to copy)`, chatid, tgKey);
-			const data = await resp.json();
-			console.log(data);
-			break;
+    case "/off":
+      await env.DB.put(new String(chatid + "_status"), "off");
+      const off_status = await env.DB.get(chatid + "_status");
+      const off_res = (await sendMessage(`${off_status}`, chatid, tgKey)).json();
+      console.log(off_res);
+      break;
 
-		case "/ping":
-			const r = (await sendMessage("pong", chatid, tgKey)).json();
-			console.log(r);
-			break;
+    case "/url":
+      const bo_workerUrl = await env.DB.get("WORKER_URL");
+      const bo_key = await env.DB.get(chatid);
+      const bo = await sendMessage(`https://${bo_workerUrl}/push?key=${chatid}-${bo_key}&msg=Joker`, chatid, tgKey);
+      break;
+
+	case "/new":
+		const key = randomStr();
+		const workerUrl = await env.DB.get("WORKER_URL");
+		await env.DB.put(new String(chatid), key);
+		const resp = await sendMessage(`Your new token is \`${key}\`. 
+		Usage example: \`https://${workerUrl}/push?key=${chatid}-${key}&msg=Don't be a joker.\` 
+   (click to copy)`, chatid, tgKey);
+		const data = await resp.json();
+		console.log(data);
+		break;
+	  case "/ping":
+		const r = (await sendMessage("pong", chatid, tgKey)).json();
+		console.log(r);
+		break;
 	}
 
 	return new Response("ok");
@@ -220,6 +245,10 @@ async function handlePush(request, env, ctx) {
 
 	const chatid = splits[0];
 	const key = splits[1];
+	const expected_status = await env.DB.get(chatid + "_status");
+  	if (expected_status == "off") {
+    	return new Response("push off", { status: 401 });
+  	}
 
 	if (!isNumeric(chatid)) {
 		// chatid must be a integer
