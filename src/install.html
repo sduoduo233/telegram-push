@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>Install</title>
+
+<body>
+    <form action="/install" method="post">
+        <table border="0">
+            <tr>
+                <td>Telegram key:</td>
+                <td><input value="" name="tg-key" /></td>
+            </tr>
+            <tr>
+                <td>Admin password:</td>
+                <td><input value="" name="password" id="passwd" /></td>
+            </tr>
+            <tr>
+                <td>Worker host (used for webhook):</td>
+                <td><input value="" name="worker-url" id="worker-url" /></td>
+            </tr>
+        </table>
+        <button>Install</button>
+        <script>
+            document.getElementById("worker-url").value = location.hostname;
+            let passwd = ((o = 8, n = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz") => Array.from(crypto.getRandomValues(new Uint32Array(o))).map(o => n[o % n.length]).join(""))();
+            document.getElementById("passwd").value = passwd;
+        </script>
+</body>

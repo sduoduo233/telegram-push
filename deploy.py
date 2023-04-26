@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 import subprocess as sb
 import os
-import re
+import shutil
 import json
 
 print("Deploy")
 
+print("=> Copying wrangler.toml")
+shutil.copy("wrangler.toml.example", "wrangler.toml")
+
 print("=> Creating KV...")
-print("return", os.system("npx wrangler kv:namespace create DB > /dev/null"))
+print("return", os.system("npx wrangler kv:namespace create DB"))
 
 print("=> Get KV id...")
 kv_id = ""
@@ -25,7 +28,7 @@ content = f.read()
 f.close()
 
 print("=> Replacing...")
-content = content.replace(re.search("{ binding = \"DB\", id = \"([0-9a-f]+)\" }", content).group(1), kv_id)
+content = content.replace("KVID", kv_id)
 
 f = open("wrangler.toml", "w")
 f.write(content)

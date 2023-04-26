@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<title>Admin</title>
+
+<body>
+    <form action="/admin" method="post">
+        <fieldset>
+            <legend>Settings</legend>
+            <button type="submit" name="action" value="settings">Reset all settings</button>
+        </fieldset>
+    </form>
+
+    <form action="/admin" method="post">
+        <fieldset>
+            <legend>Webhook</legend>
+            <button type="submit" name="action" value="webhook">Reset webhook token</button>
+        </fieldset>
+    </form>
+
+    <form action="/admin" method="post">
+        <fieldset>
+            <legend>Reset password</legend>
+            <table style="border: 0;">
+                <tr>
+                    <td>Current password:</td>
+                    <td><input value="" name="current-password" type="password" /></td>
+                </tr>
+                <tr>
+                    <td>New password:</td>
+                    <td><input value="" name="password1" type="password" /></td>
+                </tr>
+                <tr>
+                    <td>Confirm password:</td>
+                    <td><input value="" name="password2" type="password" /></td>
+                </tr>
+            </table>
+            <button type="submit" name="action" value="password">Reset password</button>
+        </fieldset>
+    </form>
+</body>
