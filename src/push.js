@@ -1,4 +1,4 @@
-import { sendMessage } from "./telegram.js"
+import { sendFile, sendMessage } from "./telegram.js"
 
 function isNumeric(value) {
     return /^\d+$/.test(value);
@@ -53,7 +53,7 @@ export async function handlePush(request, env, ctx) {
 
         // text message
         if (url.searchParams.get("msg") === null) {
-            return new Response("invalid key", { status: 400 })
+            return new Response("missing msg", { status: 400 })
         }
 
         await sendMessage(url.searchParams.get("msg"), Number.parseInt(chatid), await env.DB.get("TG_KEY"));
@@ -61,6 +61,13 @@ export async function handlePush(request, env, ctx) {
     } else if (request.method === "POST") {
 
         // file upload
+        const formData = await request.formData()
+        if (!formData.has("file")) {
+            return new Response("missing file", { status: 400 });
+        }
+        const file = await formData.get("file").arrayBuffer();
+        const fileName = formData.get("file").name;
+        await sendFile(file, fileName, chatid, await env.DB.get("TG_KEY"));
 
     }
 

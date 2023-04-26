@@ -41,3 +41,16 @@ export async function sendMessage(msg, chatid, tgKey) {
 	};
 	return await fetch(`https://api.telegram.org/bot${tgKey}/sendMessage`, i);
 }
+
+// send a file
+export async function sendFile(file, fileName, chatid, tgKey) {
+	const formData = new FormData();
+	formData.append("document", new File([file], fileName));
+	formData.append("chat_id", chatid);
+
+	const i = {
+		body: formData,
+		method: "POST",
+	};
+	return await fetch(`https://api.telegram.org/bot${tgKey}/sendDocument`, i);
+}

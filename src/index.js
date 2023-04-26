@@ -1,4 +1,5 @@
 import HTML_INSTALL from "./install.html";
+import HTML_UPLOAD from "./upload.html";
 import { handleAdmin } from "./admin";
 import { handlePush } from "./push";
 import { sendMessage, setMyCommands } from "./telegram";
@@ -146,6 +147,13 @@ export default {
 
 			case "/push":
 				return handlePush(request, env, ctx);
+
+			case "/upload":
+				return new Response(HTML_UPLOAD, {
+					headers: {
+						"content-type": "text/html"
+					}
+				});
 
 			default:
 				return new Response("404 not found", {

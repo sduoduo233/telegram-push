@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<title>File Upload</title>
+
+<body>
+    <table border="0">
+        <tr>
+            <td>Key:</td>
+            <td>
+                <input value="" id="key" />
+                <input type="checkbox" id="remember">Remember</input>
+            </td>
+        </tr>
+        <tr>
+            <td>File:</td>
+            <td><input value="" id="file" type="file" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <progress id="progress"></progress>
+            </td>
+        </tr>
+    </table>
+    <button type="button" id="btn">Upload</button>
+
+    <script>
+        document.getElementById("key").value = localStorage.getItem("KEY");
+
+        document.getElementById("progress").style.display = "none";
+
+        document.getElementById("btn").onclick = () => {
+            document.getElementById("progress").style.display = "";
+
+            let key = document.getElementById("key").value;
+            let remember = document.getElementById("remember").value;
+
+            if (remember === "on") {
+                localStorage.setItem("KEY", key);
+            } else {
+                localStorage.setItem("KEY", "");
+            }
+
+            let formData = new FormData();
+            formData.append("file", document.getElementById("file").files[0]);
+
+            fetch("/push?key=" + key, {
+                method: "POST",
+                body: formData,
+            }).then(async (data) => {
+                document.getElementById("progress").style.display = "none";
+                console.log(data);
+                alert(await data.text());
+            }).catch((err) => {
+                document.getElementById("progress").style.display = "none";
+                console.log(err);
+                alert(err);
+            })
+        }
+    </script>
+</body>
